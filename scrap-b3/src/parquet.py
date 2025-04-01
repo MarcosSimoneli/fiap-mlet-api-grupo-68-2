@@ -1,13 +1,20 @@
 import pandas as pd
 
-# Exemplo de DataFrame
-data = {
-    "coluna1": [1, 2, 3],
-    "coluna2": ["A", "B", "C"]
-}
-df = pd.DataFrame(data)
+def salvar_em_parquet(dataframe, nome_arquivo):
+    """
+    Salva um DataFrame em formato Parquet e retorna o caminho do arquivo.
 
-# Salvando o DataFrame como um arquivo Parquet
-df.to_parquet("output.parquet", engine="pyarrow", index=False)
+    Parâmetros:
+    dataframe (pd.DataFrame): O DataFrame a ser salvo.
+    nome_arquivo (str): O nome do arquivo Parquet a ser gerado.
 
-print("Arquivo Parquet salvo com sucesso!")
+    Retorno:
+    str: O caminho do arquivo Parquet gerado.
+    """
+    try:
+        dataframe.to_parquet(nome_arquivo, engine="pyarrow", index=False)
+        print(f"Arquivo Parquet '{nome_arquivo}' salvo com sucesso!")
+        return nome_arquivo
+    except Exception as e:
+        print(f"Erro ao salvar o arquivo Parquet: {e}")
+        return None
